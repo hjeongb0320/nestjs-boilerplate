@@ -1,0 +1,7 @@
+.prettierrc
+.gitignore
+.eslintrc.js
+.env
+README.md
+docker-compose.yml
+Dockerfile
