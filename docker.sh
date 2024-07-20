@@ -2,13 +2,13 @@
 
 case "$1" in
     dev)
-        docker compose --env-file .env.dev -f docker-compose-dev.yaml up --build
+        docker compose --env-file .dev.env -f docker-compose-dev.yaml up --build
         ;;
     dev-d)
-        docker compose --env-file .env.dev -f docker-compose-dev.yaml up --build -d
+        docker compose --env-file .dev.env -f docker-compose-dev.yaml up --build -d
         ;;
     prod)
-        docker compose --env-file .env.prod -f docker-compose-prod.yaml up --build
+        docker compose --env-file .dev.env -f docker-compose-prod.yaml up --build
         ;;
     *)
         echo "Usage: $0 {dev|dev-d|prod}"

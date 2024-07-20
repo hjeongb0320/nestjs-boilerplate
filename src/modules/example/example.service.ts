@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { ExampleEntity } from './entities/example.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { CreateExampleResponseDto } from './dto/createExample.response.dto';
+import { Injectable } from '@nestjs/common'
+import { Repository } from 'typeorm'
+import { ExampleEntity } from './entities/example.entity'
+import { InjectRepository } from '@nestjs/typeorm'
+import { CreateExampleResponseDto } from './dto/createExample.response.dto'
 
 @Injectable()
 export class ExampleService {
@@ -14,7 +14,7 @@ export class ExampleService {
   async create_example(description: string): Promise<CreateExampleResponseDto> {
     const result: ExampleEntity = await this.exampleRepository.save({
       description,
-    });
-    return new CreateExampleResponseDto(result.id, result.description);
+    })
+    return new CreateExampleResponseDto(result.id, result.description)
   }
 }

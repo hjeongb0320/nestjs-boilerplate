@@ -1,7 +1,7 @@
 export interface ApiResponseFormat<T> {
-  statusCode: number;
-  message: string;
-  data: T;
+  statusCode: number
+  message: string
+  data: T
 }
 
 export function apiResponse<T>(response: ApiResponseFormat<T>) {
@@ -9,5 +9,5 @@ export function apiResponse<T>(response: ApiResponseFormat<T>) {
     statusCode: response.statusCode,
     message: response.message,
     data: response.data,
-  };
+  }
 }
