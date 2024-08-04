@@ -15,12 +15,12 @@ export class AuthService {
       const user: UserEntity = await this.userRepository.validateUser(username, password)
       return user
     } catch (error) {
-      throw new InternalServerErrorException('Fail: Internal Server Error')
+      throw error
     }
   }
 
   async login(user: any) {
-    const payload = { username: user.username, sub: user.userId }
+    const payload = { id: user.id }
     return {
       access_token: this.jwtService.sign(payload),
     }

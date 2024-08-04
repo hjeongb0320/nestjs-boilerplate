@@ -1,13 +1,13 @@
-import { Body, Controller, Delete, Post, Get, Query, Patch } from '@nestjs/common'
+import { Body, Controller, Delete, Post, Get, Query, Patch, UseGuards, Request } from '@nestjs/common'
 import { UserService } from './user.service'
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { apiResponse, ApiResponseFormat } from 'src/common/response/api.response'
 import { UserResponseDto } from './dto/response/user.response.dto'
 import { CreateUserRequestDto } from './dto/request/createUser.request.dto'
 import { ErrorResponse } from 'src/common/response/error.response'
 import { DeleteUserResponseDto } from './dto/response/deleteUser.response.dto'
-import { DeleteUserRequestDto } from './dto/request/deleteUser.request.dto'
 import { UpdateUserRequestDto } from './dto/request/updateUser.request.dto'
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 
 @ApiTags('user')
 @Controller('user')
@@ -38,6 +38,8 @@ export class UserController {
     })
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get('')
   @ApiOperation({ summary: 'Get user' })
   @ApiResponse({
@@ -50,8 +52,8 @@ export class UserController {
     description: 'Fail: Username does not exist',
     type: ErrorResponse,
   })
-  async getUser(@Query('id') userId: number): Promise<ApiResponseFormat<UserResponseDto>> {
-    const data: UserResponseDto = await this.userService.getUser(userId)
+  async getUser(@Request() req): Promise<ApiResponseFormat<UserResponseDto>> {
+    const data: UserResponseDto = await this.userService.getUser(req.user.userId)
     return apiResponse<UserResponseDto>({
       statusCode: 200,
       message: 'success',
@@ -75,6 +77,8 @@ export class UserController {
     })
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Patch('')
   @ApiOperation({ summary: 'Update user' })
   @ApiResponse({
@@ -87,11 +91,11 @@ export class UserController {
     description: 'Fail: User does not exist',
     type: ErrorResponse,
   })
-  async updateUser(@Body() updateUserRequestDto: UpdateUserRequestDto): Promise<ApiResponseFormat<UserResponseDto>> {
-    const data: UserResponseDto = await this.userService.updateUser(
-      updateUserRequestDto.userId,
-      updateUserRequestDto.username,
-    )
+  async updateUser(
+    @Request() req,
+    @Body() updateUserRequestDto: UpdateUserRequestDto,
+  ): Promise<ApiResponseFormat<UserResponseDto>> {
+    const data: UserResponseDto = await this.userService.updateUser(req.user.userId, updateUserRequestDto.username)
     return apiResponse<UserResponseDto>({
       statusCode: 200,
       message: 'success',
@@ -99,6 +103,8 @@ export class UserController {
     })
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Delete('')
   @ApiOperation({ summary: 'Delete user' })
   @ApiResponse({
@@ -111,10 +117,8 @@ export class UserController {
     description: 'Fail: Username does not exist',
     type: ErrorResponse,
   })
-  async deleteUser(
-    @Body() deleteUserRequestDto: DeleteUserRequestDto,
-  ): Promise<ApiResponseFormat<DeleteUserResponseDto>> {
-    const data: DeleteUserResponseDto = await this.userService.deleteUser(deleteUserRequestDto.userId)
+  async deleteUser(@Request() req): Promise<ApiResponseFormat<DeleteUserResponseDto>> {
+    const data: DeleteUserResponseDto = await this.userService.deleteUser(req.user.userId)
     return apiResponse<DeleteUserResponseDto>({
       statusCode: 200,
       message: 'success',

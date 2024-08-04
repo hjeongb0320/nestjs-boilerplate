@@ -5,5 +5,6 @@ export function swaggerConfig() {
     .setTitle('NestJS Boilerplate')
     .setDescription('NestJS Boilerplate API')
     .setVersion('1.0')
+    .addBearerAuth()
     .build()
 }
