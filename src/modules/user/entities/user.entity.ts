@@ -26,6 +26,10 @@ export class UserEntity {
     this._password = await bcrypt.hash(password, 10)
   }
 
+  async comparePassword(password: string): Promise<boolean> {
+    return await bcrypt.compare(password, this._password)
+  }
+
   get password(): string {
     return this._password
   }

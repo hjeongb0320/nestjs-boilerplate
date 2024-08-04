@@ -10,6 +10,20 @@ export class UserRepository {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
+  async validateUser(username: string, password: string): Promise<UserEntity> {
+    try {
+      const user: UserEntity = await this.userRepository.findOne({
+        where: { username },
+      })
+      if (user && (await user.comparePassword(password))) {
+        return user
+      }
+      return null
+    } catch (error) {
+      throw error
+    }
+  }
+
   async createUser(username: string, password: string): Promise<UserEntity> {
     try {
       const newUser = new UserEntity(username, password)

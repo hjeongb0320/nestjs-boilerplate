@@ -1,12 +1,5 @@
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  NotAcceptableException,
-  NotFoundException,
-} from '@nestjs/common'
+import { ConflictException, Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common'
 import { UserEntity } from './entities/user.entity'
-import { Repository } from 'typeorm'
 import { DeleteUserResponseDto } from './dto/response/deleteUser.response.dto'
 import { UserResponseDto } from './dto/response/user.response.dto'
 import { UserRepository } from './repositories/\buser.repository'
