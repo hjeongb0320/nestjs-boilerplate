@@ -13,12 +13,6 @@ export class UserEntity {
   @Column()
   private _password: string
 
-  static async createUser(username: string, password: string): Promise<UserEntity> {
-    const newUser = new UserEntity(username, password)
-    await newUser.setPassword(password)
-    return newUser
-  }
-
   async setPassword(password: string) {
     const passwordLength = password.length
     if (passwordLength < 8 || passwordLength > 20) {

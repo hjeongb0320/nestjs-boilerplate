@@ -2,12 +2,12 @@ import { Body, Controller, Delete, Post, Get, Query, Patch } from '@nestjs/commo
 import { UserService } from './user.service'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { apiResponse, ApiResponseFormat } from 'src/common/response/api.response'
-import { UserResponseDto } from './dto/user.response.dto'
-import { CreateUserRequestDto } from './dto/createUser.request.dto'
+import { UserResponseDto } from './dto/response/user.response.dto'
+import { CreateUserRequestDto } from './dto/request/createUser.request.dto'
 import { ErrorResponse } from 'src/common/response/error.response'
-import { DeleteUserResponseDto } from './dto/deleteUser.response.dto'
-import { DeleteUserRequestDto } from './dto/deleteUser.request.dto'
-import { UpdateUserRequestDto } from './dto/updateUser.request.dto'
+import { DeleteUserResponseDto } from './dto/response/deleteUser.response.dto'
+import { DeleteUserRequestDto } from './dto/request/deleteUser.request.dto'
+import { UpdateUserRequestDto } from './dto/request/updateUser.request.dto'
 
 @ApiTags('user')
 @Controller('user')
