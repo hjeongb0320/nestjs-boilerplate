@@ -2,6 +2,11 @@
 .gitignore
 .eslintrc.js
 .env
+.dev.env
 README.md
 docker-compose.yml
 Dockerfile
+docker.sh
+nest-cli.json
+dist
+node_modules
